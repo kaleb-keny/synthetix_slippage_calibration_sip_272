@@ -31,7 +31,7 @@ class Chart(Fit):
             coefList      = self.model.x
             modelSlippage = self.apply_poly_model(x=dfModel.trade_amount.to_numpy(), coefList=coefList)
             modelSlippage = np.array([-modelSlippage,modelSlippage]).flatten()
-            outputList.append(outputList )
+            outputList.append(modelSlippage)
             modelSlippage.sort()
             modelSlippageString = self.poly_print(exponentList=[0,0.5,1,2],coefList=coefList.round(5))
                         
