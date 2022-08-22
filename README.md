@@ -48,8 +48,7 @@ $ docker run -v$(pwd)/output:/app/output --name sip_272 sip_272
 The output folder consists of 3 files
 - [The function coefficients calibrated](https://github.com/kaleb-keny/synthetix_slippage_calibration_sip_272/blob/main/output/model.json)
 - [The numerical output of applying the end-state models on `trade_amount`](https://github.com/kaleb-keny/synthetix_slippage_calibration_sip_272/blob/main/output/model_slippage.csv)
-- A graphical display of the fits 
-[[output/slippage.jpeg]]
+- [A graphical display of the fits]((https://github.com/kaleb-keny/synthetix_slippage_calibration_sip_272/blob/main/output/slippage.jpeg))
 
 
 ## Copyright
