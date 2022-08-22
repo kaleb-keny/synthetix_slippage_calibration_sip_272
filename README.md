@@ -2,7 +2,7 @@
  Calibrates the parameters ( $\beta$ ) of the function below to fit a specified slippage curve given as an input:
 
 $$
-f(x) = \beta_0 + \beta_1 \sqrt(x) + \beta_1 x + \beta_2 x^2
+f(x) = \beta_0 + \beta_1 \sqrt x + \beta_1 x + \beta_2 x^2
 $$
 
 
