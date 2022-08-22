@@ -1,4 +1,5 @@
 from utils.model_fit import Fit
+import json
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -11,7 +12,8 @@ class Chart(Fit):
 
     def chart_data(self):
 
-        outputList = list()
+        outputModelDict = dict()
+        outputList      = list()
         fig, ax = plt.subplots()
 
         #get slippage data from uniswap / cex
@@ -34,6 +36,7 @@ class Chart(Fit):
             outputList.append(modelSlippage)
             modelSlippage.sort()
             modelSlippageString = self.poly_print(exponentList=[0,0.5,1,2],coefList=coefList.round(5))
+            outputModelDict[targetModelName] = self.poly_print(exponentList=[0,0.5,1,2],coefList=coefList)
                         
             #chart model & target
             sns.lineplot(x=df.trade_amount,y=df[targetModelName].to_numpy(),label=targetModelName,ax=ax)
@@ -49,6 +52,8 @@ class Chart(Fit):
         df = pd.DataFrame(outputList).T
         df.columns = ["trade_amount","uni_model_slippage","cex_model_slippage"]
         df.to_csv("output/model_slippage.csv",index=False)
+        with open("output/model.json","w") as f:
+            json.dump(outputModelDict,f,indent=6)
 
     def poly_print(self,exponentList,coefList):
         polyStr = f'{coefList[0]} '
