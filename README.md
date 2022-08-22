@@ -36,7 +36,7 @@ The input csv file under [here](https://github.com/kaleb-keny/synthetix_slippage
 - `uni_slippage` and `cex_slippage` represents the slippage in bp incurred from executing a given trade
 
 ### Install docker
-Refer to [docker][https://docs.docker.com/get-docker/] for installation
+Refer to [docker](https://docs.docker.com/get-docker/) documentation for installation of docker
 
 ### Launch model
 ```
