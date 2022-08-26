@@ -3,17 +3,22 @@
  Calibrates the parameters ( $\beta$ ) of the function below to fit a specified slippage curve given as an input:
 
 $$
-f(x) = \beta_0 + \beta_1 \sqrt x + \beta_1 x + \beta_2 x^2
+f(x) = \beta_0 + \beta_1 \sqrt x + \beta_2 x + \beta_3 x^2
 $$
 
 Then uses that model to produce a on-chain slippage model as described in [SIP-272](https://sips.synthetix.io/sips/sip-272/#abstract) . 
 f(x) is first integrated, denoted F(x), then transformed into G(x) represeting the slippage model that accepts a given amount of cumulative volume and gives back the necessary slippage amount in bp.
 
-``
-F(x) = u0 * x + u1 * (2/3) * x^(3/2) + (1/2) * u2 * x^2 + (1/3) * u3 * x^3
-G(x) = 2 * F(x) / x
-     = 2 * [u0 + u1 * 2/3 * x ^ (1/2) + u2 * x + (1/3) * u3 * x^2
-``
+$$
+F(x) = \beta_0  x + \frac{2}{3} \beta_1 x^{3/2} + \frac{1}{2}  \beta_2 x^2 + \frac{1}{3}  \beta_3 x^3 \\
+$$
+G(x) = 2 * F(x) / x 
+$$
+     = 2 * ( \beta_0  + \frac{2}{3} \beta_1 \sqrt x + \frac{1}{2}  \beta_2 x + \frac{1}{3}  \beta_3 x^2 )
+$$
+$$
+     =   2\beta_0  + \frac{4}{3} \beta_1 \sqrt x +  \beta_2 x + \frac{2}{3}  \beta_3 x^2 )
+$$
 
 
 
