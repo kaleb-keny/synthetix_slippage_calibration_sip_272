@@ -31,16 +31,15 @@ class Chart(Fit):
                            y=dfModel[targetModelName].to_numpy())
             
             coefList      = self.model.x
-            modelSlippage = self.apply_poly_model(x=dfModel.trade_amount.to_numpy(), coefList=coefList)
+            modelSlippage = self.apply_model_integrated(x=dfModel.trade_amount.to_numpy(), coefList=coefList)
             modelSlippage = np.array([-modelSlippage,modelSlippage]).flatten()
             outputList.append(modelSlippage)
             modelSlippage.sort()
-            modelSlippageString = self.poly_print(exponentList=[0,0.5,1,2],coefList=coefList.round(5))
-            outputModelDict[targetModelName] = self.poly_print(exponentList=[0,0.5,1,2],coefList=coefList)
-                        
+            outputModelDict[targetModelName] = self.get_model_str(coefList=coefList)
+                                    
             #chart model & target
             sns.lineplot(x=df.trade_amount,y=df[targetModelName].to_numpy(),label=targetModelName,ax=ax)
-            sns.lineplot(x=df.trade_amount,y=modelSlippage,label=f'{modelSlippageString}',ax=ax,ls='--')
+            sns.lineplot(x=df.trade_amount,y=modelSlippage,label=outputModelDict[targetModelName],ax=ax,ls='--')
 
         ax.grid(linestyle='--',lw=0.3)
         ax.set_title('Slippage Chart')
@@ -55,8 +54,9 @@ class Chart(Fit):
         with open("output/model.json","w") as f:
             json.dump(outputModelDict,f,indent=6)
 
-    def poly_print(self,exponentList,coefList):
-        polyStr = f'{coefList[0]} '
-        for exponent, coef in zip(exponentList[1:],coefList[1:]):
-            polyStr = polyStr + '{0:+}'.format(coef) + f'x^{exponent} '
-        return polyStr
+    def get_model_str(self,coefList):
+        modelStr =   '{:0.3e}'.format(coefList[0] * 2) + " + " 
+        for exponent, exponentIntegrate, coef in zip(self.exponentList[1:],self.exponentListIntegrate[1:],coefList[1:]):
+            modelStr = modelStr +  '{:0.3e}'.format(coef/exponentIntegrate) + f' * x^{exponent} + '
+        modelStr = modelStr[:-2]
+        return modelStr
