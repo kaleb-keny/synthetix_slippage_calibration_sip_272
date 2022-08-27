@@ -58,5 +58,5 @@ class Chart(Fit):
         modelStr =   '{:+0.3e}'.format(coefList[0] * 2) + " " 
         for exponent, exponentIntegrate, coef in zip(self.exponentList[1:],self.exponentListIntegrate[1:],coefList[1:]):
             modelStr = modelStr +  '{:+0.3e}'.format(2*coef/exponentIntegrate) + f'*x^{exponent} '
-        modelStr = modelStr[:-2]
+        modelStr = modelStr[:-1]
         return modelStr
