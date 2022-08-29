@@ -35,11 +35,13 @@ class Chart(Fit):
             modelSlippage = np.array([-modelSlippage,modelSlippage]).flatten()
             outputList.append(modelSlippage)
             modelSlippage.sort()
-            outputModelDict[targetModelName + " | 2F(x)/x"] = self.get_model_str(coefList=coefList)
+            outputModelDict[targetModelName] = {} 
+            parameterOutputDict = {f'u_{idx}': '{:+0.3e}'.format(u) for idx, u in enumerate(coefList)}
+            outputModelDict[targetModelName]["parameters"] = parameterOutputDict
                                     
             #chart model & target
             sns.lineplot(x=df.trade_amount,y=df[targetModelName].to_numpy(),label=targetModelName,ax=ax)
-            sns.lineplot(x=df.trade_amount,y=modelSlippage,label=outputModelDict[targetModelName + " | 2F(x)/x"],ax=ax,ls='--')
+            sns.lineplot(x=df.trade_amount,y=modelSlippage,label=parameterOutputDict,ax=ax,ls='--')
 
         ax.grid(linestyle='--',lw=0.3)
         ax.set_title('Slippage Chart')
@@ -53,10 +55,3 @@ class Chart(Fit):
         df.to_csv("output/model_slippage.csv",index=False)
         with open("output/model.json","w") as f:
             json.dump(outputModelDict,f,indent=6)
-
-    def get_model_str(self,coefList):
-        modelStr =   '{:+0.3e}'.format(coefList[0] * 2) + " " 
-        for exponent, exponentIntegrate, coef in zip(self.exponentList[1:],self.exponentListIntegrate[1:],coefList[1:]):
-            modelStr = modelStr +  '{:+0.3e}'.format(2*coef/exponentIntegrate) + f'*x^{exponent} '
-        modelStr = modelStr[:-1]
-        return modelStr

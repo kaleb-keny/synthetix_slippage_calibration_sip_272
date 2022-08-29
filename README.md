@@ -1,23 +1,10 @@
 # Synthetix Best Execution Pricing Calibration
  
- Calibrates the parameters ( $\beta$ ) of the function below to fit a specified slippage curve given as an input:
+ Calibrates the parameters ( $u$ ) of the function below to fit a specified slippage curve, as described in [SIP-272](https://sips.synthetix.io/sips/sip-272/#abstract) :
 
 $$
-f(x) = \beta_0 + \beta_1 \sqrt x + \beta_2 x + \beta_3 x^2
+G(x,y) =  2 \frac {u_0 (|x|-|y|) + \frac{2}{3} u_1 (|x| ^ {3/2} - |y|^ {3/2} ) + \frac{1}{2} u_2 (|x|^2 - |y|^2) + \frac{1}{3} u_3 (|x|^3-|y|^3)} {|x|-|y|}
 $$
-
-Then uses that model to produce a on-chain slippage model as described in [SIP-272](https://sips.synthetix.io/sips/sip-272/#abstract) . 
-f(x) is first integrated, denoted `F(x)`, then transformed into `G(x)` represeting the slippage model that accepts a given amount of cumulative volume and gives back the necessary slippage amount in bp.
-
-$$
-F(x) = \beta_0  x + \frac{2}{3} \beta_1 x^{3/2} + \frac{1}{2}  \beta_2 x^2 + \frac{1}{3}  \beta_3 x^3 \\
-
-G(x) = 2  F(x) / x  \\
-     = 2  ( \beta_0  + \frac{2}{3} \beta_1 \sqrt x + \frac{1}{2}  \beta_2 x + \frac{1}{3}  \beta_3 x^2 ) \\
-     = 2\beta_0  + \frac{4}{3} \beta_1 \sqrt x +  \beta_2 x + \frac{2}{3}  \beta_3 x^2 )
-$$
-
-
 
 
 ## To Setup
@@ -29,7 +16,7 @@ $ cd sip_272
 $ git clone git@github.com:kaleb-keny/synthetix_slippage_calibration_sip_272.git
 ```
 
-### Incorporate Input Data
+### Input Slippage Data - Target
 
 The input csv file under [here](https://github.com/kaleb-keny/synthetix_slippage_calibration_sip_272/tree/main/input) takes the following form:
 
@@ -58,7 +45,7 @@ $ docker build --tag sip_272 .
 $ docker run -v$(pwd)/output:/app/output --name sip_272 sip_272
 ```
 
-## Output
+## Output Parameters
 The output folder consists of 3 files
 - [The function coefficients calibrated](https://github.com/kaleb-keny/synthetix_slippage_calibration_sip_272/blob/main/output/model.json)
 - [The numerical output of applying the end-state models on `trade_amount`](https://github.com/kaleb-keny/synthetix_slippage_calibration_sip_272/blob/main/output/model_slippage.csv)
