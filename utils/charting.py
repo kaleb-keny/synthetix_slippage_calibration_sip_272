@@ -7,7 +7,7 @@ import numpy as np
 
 class Chart(Fit):
     
-    def __init__(self,exponentList=[0,0.5,1,2]):
+    def __init__(self,exponentList=[0.5,1]):
         super().__init__(exponentList)
 
     def chart_data(self):

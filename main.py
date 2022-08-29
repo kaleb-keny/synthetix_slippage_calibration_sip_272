@@ -7,7 +7,7 @@ if __name__ == '__main__':
     '''
     Please enter the exponents of the model (typically, [0,0.5,1,2])
     
-        python main.py -e 0 0.5 1 2
+        python main.py -e 0.5 1
 
     '''
 
