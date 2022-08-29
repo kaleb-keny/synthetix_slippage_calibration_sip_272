@@ -36,7 +36,7 @@ class Chart(Fit):
             outputList.append(modelSlippage)
             modelSlippage.sort()
             outputModelDict[targetModelName] = {} 
-            parameterOutputDict = {f'u_{idx}': '{:+0.3e}'.format(u) for idx, u in enumerate(coefList)}
+            parameterOutputDict = {f'u_{idx}': '{:+0.6e}'.format(u) for idx, u in enumerate(coefList)}
             outputModelDict[targetModelName]["parameters"] = parameterOutputDict
                                     
             #chart model & target
