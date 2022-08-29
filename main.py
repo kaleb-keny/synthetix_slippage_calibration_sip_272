@@ -23,7 +23,7 @@ if __name__ == '__main__':
     if args.e:
         exponentList = args.e
     else:
-        exponentList = [0,0.5,1,2]
+        exponentList = [0.5,1]
     
     chart = Chart(exponentList=exponentList)
     chart.chart_data()

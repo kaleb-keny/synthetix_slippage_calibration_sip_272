@@ -3,7 +3,7 @@
  Calibrates the parameters ( $u$ ) of the function below to fit a specified slippage curve, as described in [SIP-272](https://sips.synthetix.io/sips/sip-272/#abstract) :
 
 $$
-G(x,y) =  2 \frac {u_0 (|x|-|y|) + \frac{2}{3} u_1 (|x| ^ {3/2} - |y|^ {3/2} ) + \frac{1}{2} u_2 (|x|^2 - |y|^2) + \frac{1}{3} u_3 (|x|^3-|y|^3)} {|x|-|y|}
+G(x,y) =  2 \frac{2}{3} u_0 (|x| ^ {3/2} - |y|^ {3/2} ) + \frac{1}{2} u_1 (|x|^2 - |y|^2)
 $$
 
 
